@@ -1,61 +1,92 @@
 # The Daily Lexical Biscuit
 
-A vanilla JavaScript, offline-first word-of-the-day PWA with a 365-word archive, local favourites, archive search, copy-card support, and optional local BBC ambience MP3 files.
+**Aka: Word of the Day!**
 
-This package was refactored from the original single-file HTML prototype. The original is preserved in `legacy/daily-lexical-biscuit-single-file-original.html`.
+A vanilla JavaScript, offline-first word-of-the-day PWA with a 365-word archive, local favourites, archive search, copy-card support, and optional BBC ambience audio.
+
+This project was refactored from the original single-file HTML prototype. The original is preserved at:
+
+`legacy/daily-lexical-biscuit-single-file-original.html`
+
+Live site:
+
+`https://interstellar-hitchhiker.github.io/Edu-WoD/`
+
+## Features
+
+* One deterministic word of the day based on the user’s local date
+* 365-word embedded archive
+* Previous, next, and random word navigation
+* Archive search
+* Local browser favourites
+* Copy-card support
+* Optional ambience audio
+* Offline-first PWA structure
+* GitHub Pages friendly
+* No login, no database, no tracking, no server
+
+## Audio
+
+This repository includes three local MP3 ambience files downloaded from BBC Sound Effects and placed in:
+
+`assets/audio/bbc/`
+
+The app reads the audio mapping from:
+
+`assets/data/audio-library.json`
+
+Configured audio tracks:
+
+| App label              | Local filename                  | BBC Sound Effects lookup                                     |
+| ---------------------- | ------------------------------- | ------------------------------------------------------------ |
+| Song thrush birdsong   | `bbc_song-thrus_nhu0508018.mp3` | `https://sound-effects.bbcrewind.co.uk/search?q=NHU05080188` |
+| Close fire / fireplace | `bbc_fire---clo_nhu0500210.mp3` | `https://sound-effects.bbcrewind.co.uk/search?q=NHU05002102` |
+| Heavy rain             | `bbc_rain---hea_nhu0503213.mp3` | `https://sound-effects.bbcrewind.co.uk/search?q=NHU05032133` |
+
+Audio behaviour:
+
+* No audio autoplays.
+* The user selects an ambience track and presses **Play ambience**.
+* Changing the selected ambience refreshes the audio source.
+* If audio was already playing, the newly selected ambience starts after the change.
+* Audio loops quietly and uses the app’s volume slider.
+* The sound files are local project files, not hotlinked BBC streams.
+
+## BBC Sound Effects acknowledgement
+
+This project uses selected BBC Sound Effects audio files for a free, non-commercial, educational/personal word-of-the-day web app.
+
+BBC Sound Effects states that its archive can be used in personal/educational projects, and its FAQ says that, as a general rule, non-commercial use is free when crediting the BBC. Commercial use, including monetised, sold, paid-access, advertising-funded, or commercially sponsored use, requires licensing through Pro Sound Effects.
+
+BBC Sound Effects:
+
+`https://sound-effects.bbcrewind.co.uk/`
+
+BBC Sound Effects licensing:
+
+`https://sound-effects.bbcrewind.co.uk/licensing`
+
+BBC Sound Effects FAQ:
+
+`https://sound-effects.bbcrewind.co.uk/faqs`
+
+The BBC audio files are not covered by this project’s MIT licence. They remain BBC copyright and are used under BBC Sound Effects terms.
 
 ## Run locally
 
 Because the word archive and audio library are loaded from JSON files, run the app from a local server rather than opening `index.html` directly.
 
-```bash
-cd daily-lexical-biscuit-pwa
-python3 -m http.server 8080
+On Windows, from the extracted or cloned project folder:
+
+```cmd
+py -m http.server 8080
 ```
 
-Open:
+Then open:
 
-```text
-http://localhost:8080
-```
+`http://localhost:8080/`
 
-## Add the three BBC MP3 files
-
-The generated zip does **not** include the audio files. Put your downloaded MP3s in this exact folder:
-
-```text
-assets/audio/bbc/
-```
-
-Use these exact filenames:
-
-```text
-assets/audio/bbc/bbc_song-thrus_nhu0508018.mp3
-assets/audio/bbc/bbc_fire---clo_nhu0500210.mp3
-assets/audio/bbc/bbc_rain---hea_nhu0503213.mp3
-```
-
-The app displays them with friendly labels:
-
-| App label | Required filename | Source lookup link |
-| --- | --- | --- |
-| Song thrush birdsong | `bbc_song-thrus_nhu0508018.mp3` | https://sound-effects.bbcrewind.co.uk/search?q=NHU05080188 |
-| Close fire / fireplace | `bbc_fire---clo_nhu0500210.mp3` | https://sound-effects.bbcrewind.co.uk/search?q=NHU05002102 |
-| Heavy rain | `bbc_rain---hea_nhu0503213.mp3` | https://sound-effects.bbcrewind.co.uk/search?q=NHU05032133 |
-
-The app reads this mapping from `assets/data/audio-library.json`. Change that file if you later rename the MP3s or add more ambience tracks.
-
-## Audio behaviour
-
-- No sound autoplays.
-- Select a soundscape, then press **Play ambience**.
-- Changing the selected ambience refreshes the audio source. If audio was already playing, the new selection starts playing after the change.
-- The audio loops quietly and uses the app volume slider.
-- If a file is missing, the app shows which filename needs to be placed in `assets/audio/bbc/`.
-
-## BBC Sound Effects acknowledgement
-
-The optional ambience filenames and source links are for BBC Sound Effects downloads supplied by the project owner. 
+If you are using VS Code, you can also use the Live Server extension and open `index.html` through Live Server.
 
 ## Project structure
 
@@ -77,6 +108,9 @@ assets/
   data/words.json
   data/audio-library.json
   audio/bbc/
+    bbc_song-thrus_nhu0508018.mp3
+    bbc_fire---clo_nhu0500210.mp3
+    bbc_rain---hea_nhu0503213.mp3
   icons/
 docs/
   audio-guide.md
@@ -98,12 +132,14 @@ npm run validate:words
 
 ## Deploy on GitHub Pages
 
-1. Upload the project to a GitHub repository.
-2. Add the three MP3 files to `assets/audio/bbc/`.
-3. Keep `.nojekyll` in the repository root.
+1. Keep `.nojekyll` in the repository root.
+2. Keep `index.html`, `manifest.webmanifest`, and `service-worker.js` in the repository root.
+3. Keep the three MP3 files in `assets/audio/bbc/`.
 4. Enable GitHub Pages from the repository settings.
-5. Use the root folder as the Pages source.
+5. Use the repository root as the Pages source.
 
 ## Licence
 
-The app code and original word archive are provided under the included MIT licence. Optional BBC audio files are not covered by this licence and remain subject to their own terms.
+The app code and original word archive are provided under the included MIT licence.
+
+The BBC Sound Effects audio files are not MIT-licensed and are not owned by this project. They remain subject to BBC Sound Effects terms and are included here only for non-commercial educational/personal use with BBC acknowledgement.
