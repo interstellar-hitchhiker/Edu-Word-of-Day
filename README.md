@@ -55,9 +55,7 @@ The app reads this mapping from `assets/data/audio-library.json`. Change that fi
 
 ## BBC Sound Effects acknowledgement
 
-The optional ambience filenames and source links are for BBC Sound Effects downloads supplied by the project owner. The MP3 files themselves are not included in this generated package.
-
-If you add and publish the BBC files in a GitHub repository, make sure your use matches the BBC Sound Effects terms for your context. Keep the source links above in the README and notices.
+The optional ambience filenames and source links are for BBC Sound Effects downloads supplied by the project owner. 
 
 ## Project structure
 
